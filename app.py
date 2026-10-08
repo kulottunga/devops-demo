@@ -1,3 +1,19 @@
-import os
-name = os.getenv("NAME","World")
-print(f"Hello, {name}!")
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/plain")
+        self.end_headers()
+
+        self.wfile.write(b"Hello from my DevOps application!")
+
+
+server = HTTPServer(("0.0.0.0", 8000), Handler)
+
+print("Server running on port 8000...")
+server.serve_forever()
+
